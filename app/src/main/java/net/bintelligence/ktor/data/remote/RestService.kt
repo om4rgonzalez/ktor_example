@@ -11,6 +11,7 @@ import net.bintelligence.ktor.model.PostResponseModel
 interface RestService {
 
     suspend fun getPosts(): MutableList<PostResponseModel>
+    suspend fun addPost(newPost: PostResponseModel): PostResponseModel?
 
     companion object{
         fun create(): RestService{
