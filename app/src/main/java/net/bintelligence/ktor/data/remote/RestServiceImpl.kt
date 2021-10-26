@@ -5,56 +5,54 @@ import io.ktor.client.*
 import io.ktor.client.features.*
 import io.ktor.client.request.*
 import io.ktor.http.*
-import net.bintelligence.ktor.model.PostResponseModel
 
-class RestServiceImpl(private val client: HttpClient): RestService {
-
+class RestServiceImpl(private val client: HttpClient) : RestService {
 
 
-    override suspend fun getPosts(): MutableList<PostResponseModel> {
+    override suspend fun getPosts(): MutableList<com.example.domain.model.PostResponseModel> {
         return try {
             client.get {
                 url(Routes.POSTS)
             }
-        } catch (e: RedirectResponseException){
+        } catch (e: RedirectResponseException) {
             //3xx Errors
-                Log.d("_ERROR_", "Error: ${e.response.status.description}")
-            mutableListOf<PostResponseModel>()
-        } catch (e: ClientRequestException){
+            Log.d("_ERROR_", "Error: ${e.response.status.description}")
+            mutableListOf()
+        } catch (e: ClientRequestException) {
             //4xx Errors
             Log.d("_ERROR_", "Error: ${e.response.status.description}")
-            mutableListOf<PostResponseModel>()
-        } catch (e: ServerResponseException){
+            mutableListOf()
+        } catch (e: ServerResponseException) {
             //5xx errors
             Log.d("_ERROR_", "Error: ${e.response.status.description}")
-            mutableListOf<PostResponseModel>()
-        } catch (e: Exception){
+            mutableListOf()
+        } catch (e: Exception) {
             //for all
             Log.d("_ERROR_", "Error: ${e.message}")
-            mutableListOf<PostResponseModel>()
+            mutableListOf()
         }
     }
 
-    override suspend fun addPost(newPost: PostResponseModel): PostResponseModel? {
+    override suspend fun addPost(newPost: com.example.domain.model.PostResponseModel): com.example.domain.model.PostResponseModel? {
         return try {
-            client.post<PostResponseModel>(){
+            client.post<com.example.domain.model.PostResponseModel> {
                 url(Routes.POSTS)
                 contentType(ContentType.Application.Json)
                 body = newPost
             }
-        } catch (e: RedirectResponseException){
+        } catch (e: RedirectResponseException) {
             //3xx Errors
             Log.d("_ERROR_", "Error: ${e.response.status.description}")
             null
-        } catch (e: ClientRequestException){
+        } catch (e: ClientRequestException) {
             //4xx Errors
             Log.d("_ERROR_", "Error: ${e.response.status.description}")
             null
-        } catch (e: ServerResponseException){
+        } catch (e: ServerResponseException) {
             //5xx errors
             Log.d("_ERROR_", "Error: ${e.response.status.description}")
             null
-        } catch (e: Exception){
+        } catch (e: Exception) {
             //for all
             Log.d("_ERROR_", "Error: ${e.message}")
             null

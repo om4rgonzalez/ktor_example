@@ -1,3 +1,5 @@
+@file:Suppress("unused")
+
 package net.bintelligence.ktor.viewmodel
 
 import androidx.lifecycle.LiveData
@@ -6,32 +8,26 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import net.bintelligence.ktor.data.remote.RestService
-import net.bintelligence.ktor.model.PostResponseModel
 
-class MainViewModel: ViewModel() {
+class MainViewModel : ViewModel() {
 
     private val service = RestService.create()
 
-    private val _data = MutableLiveData<MutableList<PostResponseModel>>().also {
-        it.value = arrayListOf()
+    private val _data =
+        MutableLiveData<MutableList<com.example.domain.model.PostResponseModel>>().also {
+            it.value = arrayListOf()
+        }
+    val data: LiveData<MutableList<com.example.domain.model.PostResponseModel>>
+        get() = _data
+
+
+    private val _post = MutableLiveData<com.example.domain.model.PostResponseModel>().also {
+        it.value = com.example.domain.model.PostResponseModel()
     }
-    val data: LiveData<MutableList<PostResponseModel>>
-    get() = _data
-
-
-
-    private val _post = MutableLiveData<PostResponseModel>().also {
-        it.value = PostResponseModel()
-    }
-    val post: LiveData<PostResponseModel>
+    val post: LiveData<com.example.domain.model.PostResponseModel>
         get() = _post
 
-//    init {
-//        getPosts()
-//    }
-
-
-    fun getPosts(){
+    fun getPosts() {
         viewModelScope.launch {
             service.getPosts().also {
                 _data.value = it
@@ -39,7 +35,7 @@ class MainViewModel: ViewModel() {
         }
     }
 
-    fun addPost(newPost: PostResponseModel){
+    fun addPost(newPost: com.example.domain.model.PostResponseModel) {
         viewModelScope.launch {
             service.addPost(newPost).also {
                 _post.value = it

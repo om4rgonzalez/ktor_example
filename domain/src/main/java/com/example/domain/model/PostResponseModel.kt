@@ -1,4 +1,4 @@
-package net.bintelligence.ktor.model
+package com.example.domain.model
 
 import kotlinx.serialization.Serializable
 
@@ -6,6 +6,6 @@ import kotlinx.serialization.Serializable
 data class PostResponseModel(
     val userId: Int = 0,
     val id: Int = 0,
-    val title:String = "",
+    val title: String = "",
     val body: String = ""
 )

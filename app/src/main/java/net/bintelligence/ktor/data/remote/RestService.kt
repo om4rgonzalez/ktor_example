@@ -2,24 +2,22 @@ package net.bintelligence.ktor.data.remote
 
 import io.ktor.client.*
 import io.ktor.client.engine.android.*
-import io.ktor.client.features.BodyProgress.Feature.install
 import io.ktor.client.features.json.*
 import io.ktor.client.features.json.serializer.*
 import io.ktor.client.features.logging.*
-import net.bintelligence.ktor.model.PostResponseModel
 
 interface RestService {
 
-    suspend fun getPosts(): MutableList<PostResponseModel>
-    suspend fun addPost(newPost: PostResponseModel): PostResponseModel?
+    suspend fun getPosts(): MutableList<com.example.domain.model.PostResponseModel>
+    suspend fun addPost(newPost: com.example.domain.model.PostResponseModel): com.example.domain.model.PostResponseModel?
 
-    companion object{
-        fun create(): RestService{
-            return RestServiceImpl(client = HttpClient(Android){
-                install(Logging){
+    companion object {
+        fun create(): RestService {
+            return RestServiceImpl(client = HttpClient(Android) {
+                install(Logging) {
                     level = LogLevel.ALL
                 }
-                install(JsonFeature){
+                install(JsonFeature) {
                     serializer = KotlinxSerializer()
                 }
             })
