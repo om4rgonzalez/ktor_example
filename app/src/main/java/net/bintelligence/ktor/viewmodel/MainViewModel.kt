@@ -6,25 +6,25 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.data.datasource.remote.network.RestService
 import kotlinx.coroutines.launch
-import net.bintelligence.ktor.data.remote.RestService
 
 class MainViewModel : ViewModel() {
 
     private val service = RestService.create()
 
     private val _data =
-        MutableLiveData<MutableList<com.example.domain.model.PostResponseModel>>().also {
+        MutableLiveData<MutableList<com.example.domain.model.PostModel>>().also {
             it.value = arrayListOf()
         }
-    val data: LiveData<MutableList<com.example.domain.model.PostResponseModel>>
+    val data: LiveData<MutableList<com.example.domain.model.PostModel>>
         get() = _data
 
 
-    private val _post = MutableLiveData<com.example.domain.model.PostResponseModel>().also {
-        it.value = com.example.domain.model.PostResponseModel()
+    private val _post = MutableLiveData<com.example.domain.model.PostModel>().also {
+        it.value = com.example.domain.model.PostModel()
     }
-    val post: LiveData<com.example.domain.model.PostResponseModel>
+    val post: LiveData<com.example.domain.model.PostModel>
         get() = _post
 
     fun getPosts() {
@@ -35,7 +35,7 @@ class MainViewModel : ViewModel() {
         }
     }
 
-    fun addPost(newPost: com.example.domain.model.PostResponseModel) {
+    fun addPost(newPost: com.example.domain.model.PostModel) {
         viewModelScope.launch {
             service.addPost(newPost).also {
                 _post.value = it

@@ -1,4 +1,4 @@
-package net.bintelligence.ktor.data.remote
+package com.example.data.datasource.remote.network
 
 object Routes {
 

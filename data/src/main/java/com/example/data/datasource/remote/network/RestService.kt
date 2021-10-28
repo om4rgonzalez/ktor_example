@@ -1,4 +1,4 @@
-package net.bintelligence.ktor.data.remote
+package com.example.data.datasource.remote.network
 
 import io.ktor.client.*
 import io.ktor.client.engine.android.*
@@ -8,8 +8,8 @@ import io.ktor.client.features.logging.*
 
 interface RestService {
 
-    suspend fun getPosts(): MutableList<com.example.domain.model.PostResponseModel>
-    suspend fun addPost(newPost: com.example.domain.model.PostResponseModel): com.example.domain.model.PostResponseModel?
+    suspend fun getPosts(): MutableList<com.example.domain.model.PostModel>
+    suspend fun addPost(newPost: com.example.domain.model.PostModel): com.example.domain.model.PostModel?
 
     companion object {
         fun create(): RestService {

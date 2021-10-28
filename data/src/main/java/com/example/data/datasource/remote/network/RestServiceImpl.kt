@@ -1,4 +1,4 @@
-package net.bintelligence.ktor.data.remote
+package com.example.data.datasource.remote.network
 
 import android.util.Log
 import io.ktor.client.*
@@ -7,9 +7,7 @@ import io.ktor.client.request.*
 import io.ktor.http.*
 
 class RestServiceImpl(private val client: HttpClient) : RestService {
-
-
-    override suspend fun getPosts(): MutableList<com.example.domain.model.PostResponseModel> {
+    override suspend fun getPosts(): MutableList<com.example.domain.model.PostModel> {
         return try {
             client.get {
                 url(Routes.POSTS)
@@ -33,9 +31,9 @@ class RestServiceImpl(private val client: HttpClient) : RestService {
         }
     }
 
-    override suspend fun addPost(newPost: com.example.domain.model.PostResponseModel): com.example.domain.model.PostResponseModel? {
+    override suspend fun addPost(newPost: com.example.domain.model.PostModel): com.example.domain.model.PostModel? {
         return try {
-            client.post<com.example.domain.model.PostResponseModel> {
+            client.post<com.example.domain.model.PostModel> {
                 url(Routes.POSTS)
                 contentType(ContentType.Application.Json)
                 body = newPost
