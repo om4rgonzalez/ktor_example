@@ -7,7 +7,6 @@ import io.ktor.client.features.json.serializer.*
 import io.ktor.client.features.logging.*
 
 interface RestService {
-
     suspend fun getPosts(): MutableList<com.example.domain.model.PostModel>
     suspend fun addPost(newPost: com.example.domain.model.PostModel): com.example.domain.model.PostModel?
 

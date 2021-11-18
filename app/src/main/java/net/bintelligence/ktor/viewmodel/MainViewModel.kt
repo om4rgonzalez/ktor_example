@@ -7,10 +7,10 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.data.datasource.remote.network.RestService
+import com.example.domain.usecase.ListPostUseCase
 import kotlinx.coroutines.launch
 
-class MainViewModel : ViewModel() {
-
+class MainViewModel(private val listPostUseCase: ListPostUseCase) : ViewModel() {
     private val service = RestService.create()
 
     private val _data =
